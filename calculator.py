@@ -56,7 +56,7 @@ def parse(ex_str):
     raise ArithmeticError('Something bad happend')
 
 def calculator(ex_str):
-    if not ex_str.endswith("=\""):
+    if not ex_str.endswith("="):
         return "Not valid string"
     ex_str = ex_str.replace("\"","")
     ex_str = ex_str.replace("=","")

@@ -6,5 +6,3 @@ def word_count(str):
     words = str.split()
     excludedletters="\t\n-,:.1234567890"
     return(sum(w not in excludedletters for w in words))
-
-print(word_count("\"d DD\""))

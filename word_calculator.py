@@ -27,7 +27,7 @@ def word_calc(ex_word_str):
     return calculator.parse(ex_str)
 
 
-print('три плюс два={}'.format(str(word_calc("три плюс два"))))
-print('шесть минус семь={}'.format(str(word_calc("шесть минус семь"))))
-print('шесть минус семь плюс два плюс семь={}'.format(str(word_calc("шесть минус семь плюс два плюс семь"))))
-print('шесть точка три плюс два точка семь={}'.format(str(word_calc("шесть точка три плюс два точка семь"))))
+#print('три плюс два={}'.format(str(word_calc("три плюс два"))))
+#print('шесть минус семь={}'.format(str(word_calc("шесть минус семь"))))
+#print('шесть минус семь плюс два плюс семь={}'.format(str(word_calc("шесть минус семь плюс два плюс семь"))))
+#print('шесть точка три плюс два точка семь={}'.format(str(word_calc("шесть точка три плюс два точка семь"))))
