@@ -87,4 +87,4 @@ def moon_command(bot, update):
     res = ephem.next_full_moon(date_for_check).datetime()
     update.message.reply_text("Ближайшее полнолуние после {}: {}".format(date_for_check, res.strftime('%d %B %Y %H:%M')))
 
-main()
+main()  
