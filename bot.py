@@ -1,11 +1,18 @@
+from datetime import date, timedelta,datetime
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ReplyKeyboardMarkup
-import settings
-import word_count
+
+import ephem
+import locale
+import re
+
 import calculator
-import word_calculator
 import conversation_calc
 import conversation_cities
+import settings
+import word_count
+import word_calculator
+
 
 # Настройки прокси
 PROXY = {'proxy_url': 'socks5://t1.learn.python.ru:1080',
@@ -16,6 +23,7 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log'
                     )
+date_regex_string = "\d{4}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])"
 
 def main():
     mybot = Updater(settings.TELEGRAM_API_KEY, request_kwargs=PROXY)
@@ -31,6 +39,8 @@ def main():
     dp.add_handler(MessageHandler(Filters.regex('^[1234567890+-/*]+=$'), calc_command))
     #словарный калькулятор
     dp.add_handler(MessageHandler(Filters.regex('^[Сс]колько будет .*'), word_calc_command))
+    #полнолуние
+    dp.add_handler(MessageHandler(Filters.regex('^[Кк]огда ближайшее полнолуние после {}\?$'.format(date_regex_string)), moon_command))
     #клавиатура
     dp.add_handler(conversation_calc.get_handler_instance())
     #города
@@ -68,5 +78,13 @@ def word_calc_command(bot, update):
     user_text = update.message.text 
     res = word_calculator.word_calc(user_text)
     update.message.reply_text(res)
+
+locale.setlocale(locale.LC_ALL, "russian")
+def moon_command(bot, update):
+    user_text = update.message.text 
+    x=re.search(date_regex_string,user_text)
+    date_for_check = x.group()
+    res = ephem.next_full_moon(date_for_check).datetime()
+    update.message.reply_text("Ближайшее полнолуние после {}: {}".format(date_for_check, res.strftime('%d %B %Y %H:%M')))
 
 main()
